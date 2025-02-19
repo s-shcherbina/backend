@@ -13,11 +13,7 @@ async function bootstrap() {
 
   app.enableCors({
     credentials: true,
-    origin: [
-      configService.getOrThrow('CLIENT_URL'),
-      // 'http://localhost:4200',
-      '*',
-    ],
+    origin: [configService.getOrThrow('CLIENT_URL'), '*'],
   });
   app.use(cookieParser());
 
@@ -35,9 +31,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(
-    configService.getOrThrow<number>('APP_PORT'),
-    configService.getOrThrow('APP_HOST'),
-  );
+  await app.listen(configService.getOrThrow<number>('APP_PORT'));
 }
 bootstrap();
