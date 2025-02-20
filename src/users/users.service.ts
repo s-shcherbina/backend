@@ -48,11 +48,4 @@ export class UsersService {
   public async remove(id: string) {
     return this.userRepository.delete({ id });
   }
-
-  // public async getMe(token: string) {
-  //   const decode: IPayloadToken = await this.jwtService.decode(token); //? verify
-  //   const me = await this.findByEmail(decode.email);
-  //   return me;
-  //   // return this.findByEmail(decode.email);
-  // }
 }

@@ -13,7 +13,12 @@ async function bootstrap() {
 
   app.enableCors({
     credentials: true,
-    origin: [configService.getOrThrow('CLIENT_URL'), '*'],
+    origin: [
+      '*',
+      'https://meduzzen-965114150226.us-central1.run.app',
+      'http://localhost:4200',
+    ],
+    // origin: [configService.getOrThrow('CLIENT_URL'), '*'],
   });
   app.use(cookieParser());
 
@@ -31,6 +36,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(configService.getOrThrow<number>('APP_PORT'));
+  // await app.listen(configService.getOrThrow<number>('APP_PORT'));
+  await app.listen(3000);
 }
 bootstrap();

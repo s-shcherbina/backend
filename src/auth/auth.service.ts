@@ -29,19 +29,19 @@ export class AuthService {
     const { email } = user;
     const accessToken = await this.generateToken(
       { email },
-      this.configService.getOrThrow('JWT_SECRET_ACCESS'),
-      this.configService.getOrThrow('JWT_ACCESS_EXPIRESIN'),
+      // this.configService.getOrThrow('JWT_SECRET_ACCESS'),
+      'jwt-secret-access',
+      // this.configService.getOrThrow('JWT_ACCESS_EXPIRESIN'),
+      '10s',
     );
     const refreshToken = await this.generateToken(
       { email },
-      this.configService.getOrThrow('JWT_SECRET_REFRESH'),
-      this.configService.getOrThrow('JWT_REFRESH_EXPIRESIN'),
+      // this.configService.getOrThrow('JWT_SECRET_REFRESH'),
+      'jwt-secret-refresh',
+      // this.configService.getOrThrow('JWT_REFRESH_EXPIRESIN'),
+      '1000s',
     );
     await this.saveToken(refreshToken, email);
-
-    // const { password, ...userData } = user;
-
-    // return { ...userData, accessToken, refreshToken };
     return { accessToken, refreshToken };
   }
 
@@ -116,7 +116,8 @@ export class AuthService {
 
   private async validateRefreshToken(token: string) {
     const dataToken: IPayloadToken = await this.jwtService.verify(token, {
-      secret: this.configService.getOrThrow('JWT_SECRET_REFRESH'),
+      // secret: this.configService.getOrThrow('JWT_SECRET_REFRESH'),
+      secret: 'jwt-secret-refresh',
     });
     return dataToken;
   }
