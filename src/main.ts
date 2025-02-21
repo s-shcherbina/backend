@@ -16,8 +16,10 @@ async function bootstrap() {
     origin: [
       '*',
       'https://test-intership-frontend2-965114150226.europe-west3.run.app/',
+      'https://test-intership-frontend2-965114150226.europe-west3.run.app',
       'http://localhost:4200',
     ],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     // origin: [configService.getOrThrow('CLIENT_URL'), '*'],
   });
   app.use(cookieParser());
